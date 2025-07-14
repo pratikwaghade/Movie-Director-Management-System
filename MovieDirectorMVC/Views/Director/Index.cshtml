@@ -1,0 +1,32 @@
+﻿@model List<MovieDirectorMVC.Models.Director>
+
+<h2>List of Directors</h2>
+
+<table class=" table table-bordered">
+    <thead class="table-dark">
+       <tr>
+           <th>ID</th>
+           <th>Name</th>
+           <th>Nationality</th>
+           <th>Actions</th>
+       </tr>
+    </thead>
+    <tbody>
+        @foreach (var directors in Model)
+        {
+            <tr>
+                <td>@directors.Id</td>
+                <td>@directors.Name</td>
+                <td>@directors.Nationality</td>
+                <td>
+                    <a class="btn btn-warning" asp-controller="Director" asp-action="Edit" asp-route-id="@directors.Id">Edit</a>
+                    <form asp-action="Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@directors.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this movie?');">Delete</button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

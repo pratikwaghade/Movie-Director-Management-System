@@ -1,0 +1,45 @@
+﻿@model List<MovieDirectorMVC.Models.ViewModels.MovieWithDirectorsViewModel>
+
+<h2>Movies & Directors</h2>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Movie Title</th>
+            <th>Release Year</th>
+            <th>Directors</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.ReleaseYear</td>
+                <td>
+                    @if(movie.DirectorList != null && movie.DirectorList.Any())
+                    {
+                        <ul>
+                            @foreach(var director in movie.DirectorList)
+                            {
+                                <li class="d-flex justify-content-between align-items-center mb-1">
+                                   @director.Name
+
+                                   <form asp-action="Unassign" method="post" style="display:inline">
+                                        <input type="hidden" name="movieId" value="@movie.MovieId"/>
+                                        <input type="hidden" name="directorId" value="@director.Id"/>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(`Unassign this director?)">Unassign</button>
+                                   </form>
+                               </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No Directors Assigned</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

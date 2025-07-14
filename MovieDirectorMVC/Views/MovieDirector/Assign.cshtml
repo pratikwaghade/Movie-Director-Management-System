@@ -1,0 +1,47 @@
+﻿@model MovieDirectorMVC.Models.ViewModels.AssignDirectorViewModel
+
+@{
+    ViewData["Title"] = "Assign Directors";
+}
+
+<h2>Assign Directors to Movies</h2>
+
+<form asp-action="Assign" method="post">
+    <div class="form-group">
+        <label>Select Movies:</label>
+        <select asp-for="MovieIds"
+                class="form-control select2"
+                asp-items="@(new MultiSelectList(Model.Movies, "Id", "Title"))"
+                multiple="multiple">
+        </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <label>Select Directors:</label>
+        <select asp-for="DirectorIds"
+                class="form-control select2"
+                asp-items="@(new MultiSelectList(Model.Directors, "Id", "Name"))"
+                multiple="multiple">
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Assign</button>
+</form>
+
+@section Scripts {
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Select2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                placeholder: "Select options",
+                width: '100%'
+            });
+        });
+    </script>
+}
